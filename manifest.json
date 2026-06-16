@@ -10,5 +10,9 @@
       "enum": ["markdown", "text", "pdf"]
     }
   },
-  "outputs": ["products", "policy", "faq"]
+  "outputs": {
+    "type": "files",
+    "files": ["products", "policy", "faq"],
+    "description": "Generate Products, Policy, and FAQ as separate files in the requested output format."
+  }
 }

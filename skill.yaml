@@ -22,18 +22,21 @@ inputs:
     enum:
       - markdown
       - text
-      - json
+      - pdf
     description: Output format for generated knowledge base
 
 outputs:
   type: object
   schema:
-    products:
-      type: array
-    policy:
-      type: object
-    faq:
-      type: array
+    products_file:
+      type: string
+      description: Path to the generated Products output file
+    policy_file:
+      type: string
+      description: Path to the generated Policy output file
+    faq_file:
+      type: string
+      description: Path to the generated FAQ output file
 
 capabilities:
   - http_fetch
