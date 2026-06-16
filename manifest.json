@@ -2,7 +2,7 @@
   "name": "store-to-knowledge-skill",
   "version": "1.0.0",
   "description": "Convert e-commerce store into structured knowledge base",
-  "entry": "skill.md",
+  "entry": "SKILL.md",
   "inputs": {
     "store_url": "string",
     "output_format": {
