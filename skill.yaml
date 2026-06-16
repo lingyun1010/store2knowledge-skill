@@ -1,0 +1,45 @@
+name: store_to_knowledge
+version: 1.0.0
+
+description: >
+  Convert any e-commerce store (Etsy, Shopify, or independent website)
+  into a structured knowledge base including products, policy, and FAQ.
+
+entry: SKILL.md
+
+runtime: markdown-skill
+
+inputs:
+  store_url:
+    type: string
+    required: true
+    description: URL of the e-commerce store to analyze
+
+  output_format:
+    type: string
+    required: false
+    default: markdown
+    enum:
+      - markdown
+      - text
+      - json
+    description: Output format for generated knowledge base
+
+outputs:
+  type: object
+  schema:
+    products:
+      type: array
+    policy:
+      type: object
+    faq:
+      type: array
+
+capabilities:
+  - http_fetch
+  - html_parse
+  - text_extraction
+
+entry_function: run
+
+strict_mode: true
