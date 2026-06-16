@@ -53,11 +53,13 @@ JSON example:
 
 ## Outputs
 
-This skill generates three knowledge base sections:
+This skill generates three separate knowledge base files:
 
-1. Products
-2. Policy
-3. FAQ
+1. `products.md` / `products.txt` / `products.pdf`
+2. `policy.md` / `policy.txt` / `policy.pdf`
+3. `faq.md` / `faq.txt` / `faq.pdf`
+
+Do not combine Products, Policy, and FAQ into a single output file.
 
 ## Workflow
 
@@ -199,70 +201,94 @@ Normalize extracted information into this structure:
       ]
     }
 
-### Step 7: Generate Final Output
+### Step 7: Generate Final Output Files
 
-Generate the final output according to `output_format`.
+Generate separate output files according to `output_format`.
+
+Always keep Products, Policy, and FAQ in separate files:
+
+- Products output goes only in `products.[format]`
+- Policy output goes only in `policy.[format]`
+- FAQ output goes only in `faq.[format]`
+
+The final response should list all generated file names and paths.
 
 ## Output Format: Markdown
 
-If `output_format` is `markdown`, return the knowledge base using this structure:
+If `output_format` is `markdown`, create three separate markdown files.
 
-    # Store Knowledge Base
+### `products.md`
+
+Use this structure:
+
+    # Products
 
     Source URL: [store_url]
-
-    ## Products
 
     | Name | Description | Category | Price | Variants | Usage Notes |
     |---|---|---|---|---|---|
     | Not specified | Not specified | Not specified | Not specified | Not specified | Not specified |
 
-    ## Policy
+### `policy.md`
 
-    ### Shipping
+Use this structure:
 
-    Not specified
+    # Policy
 
-    ### Returns
+    Source URL: [store_url]
 
-    Not specified
-
-    ### Refunds
+    ## Shipping
 
     Not specified
 
-    ### Processing Time
+    ## Returns
 
     Not specified
 
-    ### Exchanges
+    ## Refunds
 
     Not specified
 
-    ### Cancellations
+    ## Processing Time
 
     Not specified
 
-    ### Contact
+    ## Exchanges
 
     Not specified
 
-    ## FAQ
+    ## Cancellations
 
-    ### Q: Not specified
+    Not specified
+
+    ## Contact
+
+    Not specified
+
+### `faq.md`
+
+Use this structure:
+
+    # FAQ
+
+    Source URL: [store_url]
+
+    ## Q: Not specified
 
     A: Not specified
 
 ## Output Format: Text
 
-If `output_format` is `text`, return a plain text knowledge base using this structure:
+If `output_format` is `text`, create three separate text files.
 
-    STORE KNOWLEDGE BASE
+### `products.txt`
+
+Use this structure:
+
+    PRODUCTS
 
     Source URL:
     [store_url]
-
-    PRODUCTS
 
     Product 1
     Name: Not specified
@@ -272,7 +298,14 @@ If `output_format` is `text`, return a plain text knowledge base using this stru
     Variants: Not specified
     Usage Notes: Not specified
 
+### `policy.txt`
+
+Use this structure:
+
     POLICY
+
+    Source URL:
+    [store_url]
 
     Shipping: Not specified
     Returns: Not specified
@@ -282,20 +315,35 @@ If `output_format` is `text`, return a plain text knowledge base using this stru
     Cancellations: Not specified
     Contact: Not specified
 
+### `faq.txt`
+
+Use this structure:
+
     FAQ
+
+    Source URL:
+    [store_url]
 
     Q: Not specified
     A: Not specified
 
 ## Output Format: PDF
 
-If `output_format` is `pdf`, first generate the markdown version.
+If `output_format` is `pdf`, first generate the three markdown files:
 
-Then export the markdown content as a PDF if the runtime supports PDF creation.
+- `products.md`
+- `policy.md`
+- `faq.md`
+
+Then export each markdown file as a matching PDF if the runtime supports PDF creation:
+
+- `products.pdf`
+- `policy.pdf`
+- `faq.pdf`
 
 If PDF creation is not available in the current runtime, return the markdown version and include this note:
 
-    PDF generation is not available in the current runtime. Markdown output has been provided instead.
+    PDF generation is not available in the current runtime. Separate markdown output files have been provided instead.
 
 ## Failure Handling
 
@@ -335,6 +383,7 @@ If the answer is not supported by the source content, write:
 - Mark unknown fields as `Not specified`.
 - Preserve factual accuracy.
 - Keep product and policy information separate.
+- Keep Products, Policy, and FAQ in separate output files.
 - Do not make medical, legal, financial, or regulated claims.
 - Do not scrape private, login-protected, or payment-protected information.
 - Do not bypass access controls.
@@ -362,7 +411,8 @@ Before returning the final answer, check that:
 
 - The source URL is included.
 - Products are listed separately from policies.
+- Products, Policy, and FAQ are saved as separate files.
 - Unknown fields are marked as `Not specified`.
 - No unsupported claims are added.
 - The output matches the requested `output_format`.
-- The final result includes Products, Policy, and FAQ sections.
+- The final response lists all generated output files.
